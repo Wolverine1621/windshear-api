@@ -1,11 +1,13 @@
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
+from flask_cors import CORS
 import requests
 import os
 
 load_dotenv()
 
 app = Flask(__name__)
+CORS(app, origins=["https://wolverine1621.github.io"])
 
 def query_avwx(fmt, icao):
     url = "https://avwx.rest/api/"
@@ -19,7 +21,7 @@ def query_avwx(fmt, icao):
 
     headers = {"Authorization": os.environ.get("AVWX_KEY")}
 
-    return jsonify(requests.get(url, headers=headers).content.decode('utf-8'))
+    return requests.get(url, headers=headers).content.decode('utf-8')
 
 @app.route("/api/v1/metar")
 def get_metar():
