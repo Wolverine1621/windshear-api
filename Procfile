@@ -1,1 +1,1 @@
-web: gunicorn app:windshear
+web: gunicorn windshear:app
